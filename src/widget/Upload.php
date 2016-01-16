@@ -160,7 +160,7 @@ class Upload extends InputWidget
         if (!array_key_exists($this->messagesCategory, Yii::$app->i18n->translations)) {
             Yii::$app->i18n->translations[$this->messagesCategory] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'sourceLanguage' => 'en-US',
+                'sourceLanguage' => 'en',
                 'basePath'=> __DIR__ . '/messages',
                 'fileMap'=>[
                     'widget'=>'widget.php'
