@@ -96,7 +96,7 @@ class Storage extends Component
      * @param bool $overwrite
      * @return bool|string
      */
-    public function save($file, $preserveFileName = false, $overwrite = false)
+    public function save($file, $preserveFileName = true, $overwrite = false)
     {
         $fileObj = File::create($file);
         $dirIndex = $this->getDirIndex();
@@ -109,7 +109,7 @@ class Storage extends Component
                 $path = implode('/', [$dirIndex, $filename]);
             } while ($this->getFilesystem()->has($path));
         } else {
-            $filename = $fileObj->getPathInfo('filename');
+            $filename = $file->name;
             $path = implode('/', [$dirIndex, $filename]);
         }
 
@@ -138,7 +138,7 @@ class Storage extends Component
      * @param bool $overwrite
      * @return array
      */
-    public function saveAll($files, $preserveFileName = false, $overwrite = false)
+    public function saveAll($files, $preserveFileName = true, $overwrite = false)
     {
         $paths = [];
         foreach ($files as $file) {
