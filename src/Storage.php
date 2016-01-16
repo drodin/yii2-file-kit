@@ -45,16 +45,6 @@ class Storage extends Component
      */
     protected $filesystem;
     /**
-     * Max files in directory
-     * "-1" = unlimited
-     * @var int
-     */
-    public $maxDirFiles = 65535; // Default: Fat32 limit
-    /**
-     * @var int
-     */
-    private $dirindex = 1;
-    /**
      * @throws InvalidConfigException
      */
     public function init()
@@ -179,19 +169,7 @@ class Storage extends Component
      */
     protected function getDirIndex()
     {
-        if (!$this->getFilesystem()->has('.dirindex')) {
-            $this->getFilesystem()->write('.dirindex', $this->dirindex);
-        } else {
-            $this->dirindex = $this->getFilesystem()->read('.dirindex');
-            if ($this->maxDirFiles !== -1) {
-                $filesCount = count($this->getFilesystem()->listContents($this->dirindex));
-                if ($filesCount > $this->maxDirFiles) {
-                    $this->dirindex++;
-                    $this->getFilesystem()->put('.dirindex', $this->dirindex);
-                }
-            }
-        }
-        return $this->dirindex;
+        return date('Y/m/d');
     }
 
     /**
