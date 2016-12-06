@@ -99,8 +99,12 @@ class Storage extends Component
                 $path = implode('/', [$dirIndex, $filename]);
             } while ($this->getFilesystem()->has($path));
         } else {
-            $filename = $file->name;
-            $path = implode('/', [$dirIndex, $filename]);
+            $prefix = '';
+            do {
+                $filename = $prefix.$file->name;
+                $path = implode('/', [$dirIndex, $filename]);
+                $prefix .= '_';
+            } while ($this->getFilesystem()->has($path));
         }
 
         $this->beforeSave($fileObj->getPath(), $this->getFilesystem());
